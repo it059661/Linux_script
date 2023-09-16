@@ -8,10 +8,6 @@
       - poweroff
       - rm
 
-  vars_prompt:
-    - name: "{{ scommand }}"
-      prompt: "Enter the command to execute:"
-
   tasks:
     - name: Check for banned words
       set_fact:
@@ -19,6 +15,8 @@
       loop: "{{ banned_words }}"
       loop_control:
         loop_var: banned_word
+      debug:
+        var: banned_word
 
     - name: Fail if banned word is found
       fail:
