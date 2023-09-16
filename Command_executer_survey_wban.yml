@@ -20,7 +20,8 @@
     
     - name: TeST 
       debug:
-        msg: contains_banned_word is search
+        msg: "print ok"
+        when: contains_banned_word is search
       
 
     - name: Fail if banned word is found
