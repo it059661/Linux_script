@@ -1,20 +1,18 @@
 ---
 - hosts: all
-  become: yes # Questo consentirà di eseguire il comando come utente root
+  become: yes # Execute command as root
   vars:
     my_command: "{{ scommand }}"
     banned_words:
       - shutdown
       - poweroff
-      - rm #Remove files
-      - mv #Move files
+      - rm -f #Remove files
+      - kill #Kill process
       - chmod #Changing permission
       - ":(){ :|:& };:" #Fork Bomb
 
   tasks:
     - name: Check for banned words
-      #debug:
-      #  var: banned_word
       set_fact:
         contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
       loop: "{{ banned_words }}"
@@ -23,9 +21,8 @@
 
     - name: Fail if banned word is found
       fail:
-      #debug:
-        #msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'" # issue: {{ banned_word }} is undefined perchè fuori loop
-        msg: "Banned word found in the command '{{ my_command }}' - This words '{{ banned_words }}' are not permitted to use!!!"
+        #msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'" # issue: {{ banned_word }} is undefined because out of loop
+        msg: "Banned word found in the command '{{ my_command }}' - These words '{{ banned_words }}' are not permitted to use!!!"
       when: contains_banned_word != ""
 
     - name: Execute shell command
