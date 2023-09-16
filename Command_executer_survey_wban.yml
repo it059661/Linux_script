@@ -1,0 +1,34 @@
+---
+- hosts: all
+  become: yes # Questo consentirà di eseguire il comando come utente root
+  vars:
+    my_command: "{{ scommand }}"
+    banned_words:
+      - shutdown
+      - poweroff
+      - rm
+
+  vars_prompt:
+    - name: "{{ scommand }}"
+      prompt: "Enter the command to execute:"
+
+  tasks:
+    - name: Check for banned words
+      set_fact:
+        contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
+      loop: "{{ banned_words }}"
+      loop_control:
+        loop_var: banned_word
+
+    - name: Fail if banned word is found
+      fail:
+        msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'"
+      when: contains_banned_word is search
+
+    - name: Execute shell command
+      shell: "{{ my_command }}"
+      register: output
+
+    - name: Show the output
+      debug:
+        var: output.stdout_lines
