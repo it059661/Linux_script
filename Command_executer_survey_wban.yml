@@ -28,7 +28,7 @@
       fail:
       #debug:
         #msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'" # issue: {{ banned_word }} is undefined perchè fuori loop
-        msg: "Banned word found in the command '{{ my_command }}'"
+        msg: "Banned word found in the command '{{ my_command }}' - This words '{{ banned_words }}' are not permitted to use!!!"
       when: contains_banned_word != ""
 
     - name: Execute shell command
