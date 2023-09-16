@@ -21,7 +21,7 @@
     - name: TeST 
       debug:
         msg: "print ok"
-        when: contains_banned_word is search
+      when: contains_banned_word is search
       
 
     - name: Fail if banned word is found
