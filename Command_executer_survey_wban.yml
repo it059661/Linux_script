@@ -10,19 +10,20 @@
 
   tasks:
     - name: Check for banned words
-      debug:
-        var: banned_word
-      #set_fact:
-      #  contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
+      #debug:
+      #  var: banned_word
+      set_fact:
+        contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
       loop: "{{ banned_words }}"
       loop_control:
         loop_var: banned_word
       
 
-   # - name: Fail if banned word is found
+    - name: Fail if banned word is found
    #   fail:
-   #     msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'"
-   #   when: contains_banned_word is search
+      debug:
+        msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'"
+      when: contains_banned_word is search
 
     - name: Execute shell command
       shell: "{{ my_command }}"
