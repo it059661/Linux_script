@@ -17,6 +17,10 @@
       loop: "{{ banned_words }}"
       loop_control:
         loop_var: banned_word
+    
+    - name: TeST 
+      debug:
+        msg: "contains_banned_word"
       
 
     - name: Fail if banned word is found
