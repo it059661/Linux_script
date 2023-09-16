@@ -25,8 +25,8 @@
       
 
     - name: Fail if banned word is found
-   #   fail:
-      debug:
+      fail:
+      #debug:
         #msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'" # issue: {{ banned_word }} is undefined perchè fuori loop
         msg: "Banned word found in the command '{{ my_command }}'"
       when: contains_banned_word != ""
