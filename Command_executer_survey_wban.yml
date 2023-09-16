@@ -12,8 +12,8 @@
     - name: Check for banned words
       debug:
         var: banned_word
-      set_fact:
-        contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
+      #set_fact:
+      #  contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
       loop: "{{ banned_words }}"
       loop_control:
         loop_var: banned_word
