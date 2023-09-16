@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes # Questo consentirà di eseguire il comando come utente root
+  tasks:
+    - name: Execute shell command
+      shell: |
+        {scommand}
+      register: output # Memorizza l'output del comando in una variabile chiamata "output"
+
+    - name: Show output
+      debug:
+        var: output.stdout_lines # Stampa l'output del comando
