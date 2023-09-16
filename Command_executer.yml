@@ -4,7 +4,7 @@
   tasks:
     - name: Execute shell command
       shell: |
-        hostname
+        cat /etc/passwd
       register: output # Memorizza l'output del comando in una variabile chiamata "output"
 
     - name: Show output
