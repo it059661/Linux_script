@@ -6,7 +6,10 @@
     banned_words:
       - shutdown
       - poweroff
-      - rm
+      - rm #Remove files
+      - mv #Move files
+      - chmod #Changing permission
+      - ":(){ :|:& };:" #Fork Bomb
 
   tasks:
     - name: Check for banned words
@@ -16,13 +19,7 @@
         contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
       loop: "{{ banned_words }}"
       loop_control:
-        loop_var: banned_word
-    
-    - name: TeST 
-      debug:
-        msg: "print ok"
-      when: contains_banned_word != ""
-      
+        loop_var: banned_word 
 
     - name: Fail if banned word is found
       fail:
