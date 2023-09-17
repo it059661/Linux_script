@@ -6,7 +6,7 @@
     banned_words:
       - shutdown
       - poweroff
-      - rm -f #Remove files
+      - "rm -f" #Remove files
       - kill #Kill process
       - chmod #Changing permission
       - ":(){ :|:& };:" #Fork Bomb
