@@ -3,6 +3,7 @@
   become: yes # Execute command as root
   vars:
     my_command: "{{ scommand }}"
+    contains_banned_word: ""
     banned_words:
       - shutdown
       - poweroff
@@ -13,8 +14,7 @@
 
   tasks:
     - name: Check for banned words
-      set_fact:
-        contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
+      contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
       loop: "{{ banned_words }}"
       loop_control:
         loop_var: banned_word 
@@ -22,7 +22,7 @@
     - name: Fail if banned word is found
       fail:
         #msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'" # issue: {{ banned_word }} is undefined because out of loop
-        msg: "Banned word found in the command '{{ my_command }}' - These words '{{ banned_words }}' are not permitted to use!!!"
+        msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}' - These words '{{ banned_words }}' are not permitted to use!!!"
       when: contains_banned_word != ""
 
     - name: Execute shell command
