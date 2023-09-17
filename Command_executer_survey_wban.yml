@@ -9,13 +9,14 @@
       - poweroff
       - "rm -f" #Remove files
       - kill #Kill process
-      #- chmod #Changing permission
-      #- ":(){ :|:& };:" #Fork Bomb
+      - chmod #Changing permission
+      - ":(){ :|:& };:" #Fork Bomb
 
   tasks:
     - name: Check for banned words
       set_fact:
-        contains_banned_word: "{{ my_command | regex_search(banned_word) }}"
+        contains_banned_word: banned_word
+      when: "{{ my_command | regex_search(banned_word) }}"
       loop: "{{ banned_words }}"
       loop_control:
         loop_var: banned_word 
