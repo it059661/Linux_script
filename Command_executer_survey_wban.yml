@@ -15,7 +15,7 @@
   tasks:
     - name: Check for banned words
       set_fact:
-        contains_banned_word: banned_word
+        contains_banned_word: "{{ banned_word }}"
       when: my_command | regex_search(banned_word)
       loop: "{{ banned_words }}"
       loop_control:
