@@ -23,7 +23,6 @@
 
     - name: Fail if banned word is found
       fail:
-        #msg: "Banned word '{{ banned_word }}' found in the command '{{ my_command }}'" # issue: {{ banned_word }} is undefined because out of loop
         msg: "Banned word '{{ contains_banned_word }}' found in the command '{{ my_command }}' - These words '{{ banned_words }}' are not permitted to use!!!"
       when: contains_banned_word != ""
 
